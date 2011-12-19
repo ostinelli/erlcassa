@@ -8,11 +8,11 @@ ErlCassa is an Erlang client to the Cassandra Query Language (CQL). This is an a
 
 CQL, the Cassandra Query Language, addresses this by pushing all implementation details to the server; all the client has to know for any operation is how to interpret “resultset” objects. So adding a feature like counters just requires teaching the CQL parser to understand “column + N” notation; no client-side changes are necessary.
 
-CQL specification can be read here: (http://github.com/apache/cassandra/blob/trunk/doc/cql/CQL.textile)
+CQL specification can be read here: http://github.com/apache/cassandra/blob/trunk/doc/cql/CQL.textile
 
 ## Install Dependencies
 
-* You will need [Apache Thrift](http://thrift.apache.org/download/) > 0.80.
+* You will need [Apache Thrift](http://thrift.apache.org/download/) >= 0.80.
 
 ### Note for OSX developers
 
