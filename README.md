@@ -42,7 +42,7 @@ $ sudo make install
 {ok, C} = erlcassa_client:connect("localhost", 9160).
 ```
 
-### Creating a Key Space
+### Creating a Keyspace
 
 ```erlang
 {result, ok} = erlcassa_client:cql_execute(C,
@@ -50,7 +50,7 @@ $ sudo make install
 ).
 ```
 
-### Using a Key Space
+### Using a Keyspace
 
 ```erlang
 {result, ok} = erlcassa_client:cql_execute(C, "USE test1;").
