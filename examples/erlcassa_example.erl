@@ -42,7 +42,8 @@ run() ->
 	% use keyspace
 	erlcassa_client:cql_execute(C, "USE test1;"),
 	% create column family
-	{result, ok} = erlcassa_client:cql_execute(C, "CREATE COLUMNFAMILY testdata (
+	{result, ok} = erlcassa_client:cql_execute(C, "
+		CREATE COLUMNFAMILY testdata (
 		KEY int PRIMARY KEY,
 		text_field text,
 		ascii_field ascii,
@@ -56,51 +57,34 @@ run() ->
 		timestamp_field timestamp,
 		uuid_field uuid,
 		varchar_field varchar,
-		varint_field varint);"),
+		varint_field varint);
+	"),
 	io:format("Created Column Family testdata~n"),
 	% insert an entry in the column family
-	erlcassa_client:cql_execute(C, "INSERT INTO testdata (
-		KEY,
-		text_field,
-		ascii_field,
-		bigint_field,
-		blob_field,
-		boolean_field,
-		decimal_field,
-		double_field,
-		float_field,
-		timestamp_field,
-		uuid_field,
-		varchar_field,
-		varint_field
+	{result, ok} = erlcassa_client:cql_execute(C, "
+		INSERT INTO testdata (
+			KEY, text_field, ascii_field, bigint_field, blob_field, boolean_field,
+			decimal_field, double_field, float_field, timestamp_field, uuid_field,
+			varchar_field, varint_field
 		) VALUES (
-			123,
-			'text',
-			'ascii',
-			1234567890,
-			'aaaaaa',
-			true,
-			42,
-			1.3513535135,
-			1.2345,
-			1324244361517000,
-			'f47ac10b-58cc-4372-a567-0e02b2c3d479',
-			'encoded',
-			13			
-		);"),
+			123, 'text', 'ascii', 1234567890, 'aaaaaa', true,
+			42, 1.3513535135, 1.2345, 1324244361517000, 'f47ac10b-58cc-4372-a567-0e02b2c3d479',
+			'encoded', 13
+		);
+	"),
 	io:format("Inserted entry into Column Family testdata~n"),
-	% get all rows from the keyspace, as proplist (dict is the other possible return value format)
+	% get all rows from the column family, as proplist (dict is the other possible return value format)
 	{result, {rows, Rows}} = erlcassa_client:cql_execute(C, "SELECT * FROM testdata", proplist),
 	io:format("Retrieved all rows Column Family testdata, as proplist: ~p~n", [Rows]),
 	% get first row
 	[Row|_] = Rows,
 	% return KEY value of first row
-	Key = erlcassa_client:get_column("KEY", Row),
-	io:format("Retrieved the first entry's key column: ~p~n", [Key]),
+	KeyColumn = erlcassa_client:get_column("KEY", Row),
+	io:format("Retrieved the first entry's key column: ~p~n", [KeyColumn]),
 	% drop the column family
-	erlcassa_client:cql_execute(C, "DROP COLUMNFAMILY testdata;"),
+	{result, ok} = erlcassa_client:cql_execute(C, "DROP COLUMNFAMILY testdata;"),
 	io:format("Dropped the Column Family testdata~n"),
 	% drop the keyspace
-	erlcassa_client:cql_execute(C, "DROP KEYSPACE test1;"),
+	{result, ok} = erlcassa_client:cql_execute(C, "DROP KEYSPACE test1;"),
 	io:format("Dropped the KeySpace test1~n").
 
