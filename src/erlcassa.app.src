@@ -1,0 +1,13 @@
+{application, erlcassa,
+[
+	{description, "A Cassandra CQL client"},
+	{vsn, "0.1-dev"},
+	{modules, [
+		cassandra_thrift,
+		cassandra_types,
+		erlcassa_client
+	]},
+	{registered, []},
+	{env, []},
+	{applications, [kernel, stdlib]}
+]}.
