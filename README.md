@@ -12,7 +12,7 @@ CQL specification can be read here: http://github.com/apache/cassandra/blob/trun
 
 ## Install Dependencies
 
-* You will need [Apache Thrift](http://thrift.apache.org/download/) >= 0.80.
+* You will need [Apache Thrift](http://thrift.apache.org/download/) >= 0.80 and [Apache Cassandra](http://cassandra.apache.org/) >= 1.0.
 
 ### Note for OSX developers
 
