@@ -40,7 +40,7 @@ run() ->
 	{result, ok} = erlcassa_client:cql_execute(C, "CREATE KEYSPACE test1 WITH strategy_class = SimpleStrategy AND strategy_options:replication_factor = 1;"),
 	io:format("Created KeySpace test1~n"),
 	% use keyspace
-	erlcassa_client:cql_execute(C, "USE test1;"),
+	{result, ok} = erlcassa_client:cql_execute(C, "USE test1;"),
 	% create column family
 	{result, ok} = erlcassa_client:cql_execute(C, "
 		CREATE COLUMNFAMILY testdata (

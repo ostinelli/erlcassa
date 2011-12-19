@@ -53,7 +53,7 @@ $ sudo make install
 ### Using a Key Space
 
 ```erlang
-erlcassa_client:cql_execute(C, "USE test1;").
+{result, ok} = erlcassa_client:cql_execute(C, "USE test1;").
 ```
 
 ### Creating a Column Family
